@@ -1,8 +1,8 @@
-var express = require('express');
+var express = require('express-streamline');
 var router = express.Router();
 
 /* GET users listing. */
-router.get('/', function(req, res, next) {
+router.get('/', function(req, res, _) {
   res.send('respond with a resource');
 });
 

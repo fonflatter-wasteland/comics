@@ -1,5 +1,11 @@
 #!/usr/bin/env node
 
+require('streamline').register({
+    cache: true,
+    fibers: true,
+    verbose: true
+});
+
 /**
  * Module dependencies.
  */
