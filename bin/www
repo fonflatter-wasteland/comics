@@ -11,6 +11,7 @@ require('streamline').register({
  */
 
 var app = require('../app');
+
 var debug = require('debug')('fonflatter-transcriptions:server');
 var http = require('http');
 

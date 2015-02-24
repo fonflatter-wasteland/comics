@@ -6,14 +6,15 @@
     "start": "node ./bin/www"
   },
   "dependencies": {
-    "body-parser": "~1.10.2",
-    "cookie-parser": "~1.3.3",
-    "debug": "~2.1.1",
-    "express": "~4.11.1",
-    "express-streamline": "^0.5.2",
-    "morgan": "~1.5.1",
+    "body-parser": "^1.12.0",
+    "cookie-parser": "^1.3.4",
+    "debug": "^2.1.1",
+    "express": "^4.12.0",
+    "express-streamline": "^0.5.3",
+    "fonflatter-layout": "git://github.com/fonflatter/layout.git",
+    "morgan": "^1.5.1",
     "nunjucks": "^1.2.0",
-    "serve-favicon": "~2.2.0",
-    "streamline": "^0.10.16"
+    "serve-favicon": "^2.2.0",
+    "streamline": "^0.10.17"
   }
 }
