@@ -4,6 +4,7 @@ var sprintf = require('sprintf');
 module.exports = function (app) {
     var comic_url_pattern = /(\d{4})\/(\d{2})\/(\d{2})\/$/;
     var max_num_transcriptions = 10;
+    var min_year = 2005;
 
     function isCorrectSolution(solution, num_1, num_2) {
         if (solution === 'doof') {
@@ -17,6 +18,14 @@ module.exports = function (app) {
         var year = parseInt(params[0]);
         var month = parseInt(params[1]);
         var day = parseInt(params[2]);
+
+        var now = new Date(Date.now());
+
+        if ((year < min_year) || (year > now.getFullYear()) || (month < 1) || (day < 1)) {
+            var err = new Error('Not found!');
+            err.status = 404;
+            throw err;
+        }
 
         return new Date(Date.UTC(year, month-1, day));
     }
