@@ -27,6 +27,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 require('./routes/index')(app);
+require('./routes/transcribe')(app);
 
 if (app.get('env') === 'development') {
     app.use('/', layout);
