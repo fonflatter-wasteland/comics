@@ -6,6 +6,26 @@ module.exports = function (app) {
     var max_num_transcriptions = 10;
     var min_year = 2005;
 
+    function getDefaultValues(comic_date, _) {
+        var file_path = getFilePath(comic_date);
+        var transcription_files = fs.readdir(file_path, _);
+        transcription_files.sort();
+        var last_transcription_file = transcription_files.pop();
+
+        var last_transcription = fs.readJSON(file_path + '/' + last_transcription_file, _);
+        last_transcription.date = new Date(last_transcription_file.substr(0, 24)).toISOString().substr(0, 10);
+
+        return last_transcription;
+    }
+
+    function getFilePath(comic_date) {
+        return sprintf('data/transcriptions/%(year)04d/%(month)02d/%(day)02d/', {
+            year: comic_date.getFullYear(),
+            month: comic_date.getMonth()+1,
+            day: comic_date.getDate()
+        });
+    }
+
     function isCorrectSolution(solution, num_1, num_2) {
         if (solution === 'doof') {
             return true;
@@ -31,11 +51,7 @@ module.exports = function (app) {
     }
 
     function saveTranscription(comic_date, data, _) {
-        var file_path = sprintf('data/transcriptions/%(year)04d/%(month)02d/%(day)02d/', {
-            year: comic_date.getFullYear(),
-            month: comic_date.getMonth()+1,
-            day: comic_date.getDate()
-        });
+        var file_path = getFilePath(comic_date);
 
         fs.mkdirp(file_path, _);
 
@@ -57,10 +73,19 @@ module.exports = function (app) {
         );
     }
 
-    app.get(comic_url_pattern, function (req, res) {
+    app.get(comic_url_pattern, function (req, res, _) {
         var comic_date = parseComicDate(req.params);
         var comic_url = comic_date.getFullYear() + "/fred_" + comic_date.toISOString().substr(0, 10) + ".png";
-        res.render('transcribe.html', {app: req.app, comic_url: comic_url});
+
+        var input;
+        try {
+            input = getDefaultValues(comic_date, _);
+        }
+        catch (e) {
+            input = {};
+        }
+
+        res.render('transcribe.html', {app: req.app, comic_url: comic_url, input: input});
     });
 
     app.post(comic_url_pattern, function (req, res, _) {
