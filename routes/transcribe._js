@@ -74,7 +74,7 @@ module.exports = function (app) {
             result.errors.push('wrong_solution');
         }
 
-        if (!req.body.transcription) {
+        if (!req.body.text) {
             result.errors.push('transcription_missing');
         }
 
@@ -82,7 +82,7 @@ module.exports = function (app) {
             try {
                 saveTranscription(comic_date, {
                     user: req.body.user.trim(),
-                    text: req.body.transcription
+                    text: req.body.text
                 }, _);
                 result.submitted = true;
             }

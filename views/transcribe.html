@@ -81,20 +81,20 @@
 
                 <div class="col-lg-6">
                     <input class="form-control input-sm" alt="Name" id="user" name="user" type="text"
-                           value="{{ input.name }}"/>
+                           value="{{ input.user }}"/>
                 </div>
             </div>
 
             <div class="form-group{% if is_transcription_missing %} has-error{% endif %}">
-                <label class="col-lg-4 control-label" for="transcription">Transkription:</label>
+                <label class="col-lg-4 control-label" for="text">Transkription:</label>
                 {% if is_transcription_missing -%}
                     <div class="col-lg-offset-2 col-lg-4 control-label text-danger">Transkription fehlt!</div>
                 {%- endif %}
             </div>
 
             <p class="form-group{% if is_transcription_missing %} has-error{% endif %}">
-                <textarea class="col-lg-12 form-control" cols="50" id="transcription" name="transcription"
-                          rows="10">{{ input.transcription }}</textarea>
+                <textarea class="col-lg-12 form-control" cols="50" id="text" name="text"
+                          rows="10">{{ input.text }}</textarea>
             </p>
 
             <p class="form-group pull-right">
