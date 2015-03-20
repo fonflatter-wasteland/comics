@@ -3,6 +3,7 @@ var sprintf = require('sprintf');
 
 module.exports = function (app) {
     var comic_url_pattern = /(\d{4})\/(\d{2})\/(\d{2})\/$/;
+    var max_num_transcriptions = 10;
 
     function isCorrectSolution(solution, num_1, num_2) {
         if (solution === 'doof') {
@@ -29,6 +30,10 @@ module.exports = function (app) {
 
         fs.mkdirp(file_path, _);
 
+        if (fs.readdir(file_path, _).length + 1 > max_num_transcriptions) {
+            throw new Error('Too many transcriptions for ' + comic_date.toISOString().substr(0, 10) + '!');
+        }
+
         var now = new Date(Date.now());
         var file_name = file_path + now.toISOString() + '.json';
         fs.writeFile(file_name, JSON.stringify({
@@ -41,7 +46,7 @@ module.exports = function (app) {
 
     app.get(comic_url_pattern, function (req, res, _) {
         var comic_date = parseComicDate(req.params);
-        var comic_url = comic_date.getFullYear() + "/fred_" + comic_date.toISOString().slice(0, 10) + ".png";
+        var comic_url = comic_date.getFullYear() + "/fred_" + comic_date.toISOString().substr(0, 10) + ".png";
         res.render('transcribe.html', {app: req.app, comic_url: comic_url});
     });
 
