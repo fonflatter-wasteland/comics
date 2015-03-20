@@ -43,17 +43,21 @@ module.exports = function (app) {
             throw new Error('Too many transcriptions for ' + comic_date.toISOString().substr(0, 10) + '!');
         }
 
+        if (!data.user) {
+            data.user = null;
+        }
+
         var now = new Date(Date.now());
         var file_name = file_path + now.toISOString() + '.json';
         fs.writeFile(file_name, JSON.stringify({
-                name: data.name,
+                user: data.user,
                 text: data.text
             }, null, 4) + '\n',
             _
         );
     }
 
-    app.get(comic_url_pattern, function (req, res, _) {
+    app.get(comic_url_pattern, function (req, res) {
         var comic_date = parseComicDate(req.params);
         var comic_url = comic_date.getFullYear() + "/fred_" + comic_date.toISOString().substr(0, 10) + ".png";
         res.render('transcribe.html', {app: req.app, comic_url: comic_url});
@@ -74,11 +78,10 @@ module.exports = function (app) {
             result.errors.push('transcription_missing');
         }
 
-
         if (result.errors.length == 0) {
             try {
                 saveTranscription(comic_date, {
-                    name: req.body.name,
+                    user: req.body.user.trim(),
                     text: req.body.transcription
                 }, _);
                 result.submitted = true;

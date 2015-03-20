@@ -4,7 +4,7 @@
 {% block content %}
     {% if result and result.submitted %}
         <p class="alert alert-success">
-            <strong>Danke! <img alt=":-)"
+            <strong>Danke{% if input.user %}, {{ input.user }}{% endif %}! <img alt=":-)"
                                 src="//www.fonflatter.de/wp-includes/images/smilies/fred_grins.png"></strong><br>
             Deine Transkription wurde gespeichert.</p>
     {% else %}
