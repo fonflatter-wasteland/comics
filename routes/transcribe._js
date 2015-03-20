@@ -4,12 +4,6 @@ var sprintf = require('sprintf');
 module.exports = function (app) {
     var comic_url_pattern = /(\d{4})\/(\d{2})\/(\d{2})\/$/;
 
-    app.get(comic_url_pattern, function (req, res, _) {
-        var comic_date = new Date(req.params[0], req.params[1], req.params[2]);
-        var comic_url = comic_date.getFullYear() + "/fred_" + comic_date.toISOString().slice(0, 10) + ".png";
-        res.render('transcribe.html', {app: req.app, comic_url: comic_url});
-    });
-
     function isCorrectSolution(solution, num_1, num_2) {
         if (solution === 'doof') {
             return true;
@@ -18,11 +12,19 @@ module.exports = function (app) {
         return parseInt(solution) === parseInt(num_1) + parseInt(num_2);
     }
 
+    function parseComicDate(params) {
+        var year = parseInt(params[0]);
+        var month = parseInt(params[1]);
+        var day = parseInt(params[2]);
+
+        return new Date(Date.UTC(year, month-1, day));
+    }
+
     function saveTranscription(comic_date, data, _) {
         var file_path = sprintf('data/transcriptions/%(year)04d/%(month)02d/%(day)02d/', {
             year: comic_date.getFullYear(),
-            month: comic_date.getMonth(),
-            day: comic_date.getDay()
+            month: comic_date.getMonth()+1,
+            day: comic_date.getDate()
         });
 
         fs.mkdirp(file_path, _);
@@ -37,8 +39,14 @@ module.exports = function (app) {
         );
     }
 
+    app.get(comic_url_pattern, function (req, res, _) {
+        var comic_date = parseComicDate(req.params);
+        var comic_url = comic_date.getFullYear() + "/fred_" + comic_date.toISOString().slice(0, 10) + ".png";
+        res.render('transcribe.html', {app: req.app, comic_url: comic_url});
+    });
+
     app.post(comic_url_pattern, function (req, res, _) {
-        var comic_date = new Date(parseInt(req.params[0]), parseInt(req.params[1]), parseInt(req.params[2]));
+        var comic_date = parseComicDate(req.params);
         var result = {
             errors: [],
             submitted: false
