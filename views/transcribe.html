@@ -10,6 +10,10 @@
     {% else %}
 
         {% if result -%}
+            {% if 'could_not_save' in result.errors %}
+                <p class="alert alert-danger">Fehler beim Speichern!</p>
+            {% endif %}
+
             {% if 'wrong_solution' in result.errors %}
                 {% set is_solution_wrong = true %}
             {% endif %}
