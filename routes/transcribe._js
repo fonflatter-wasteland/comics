@@ -1,11 +1,12 @@
 var fs = require('fs-extra');
+var sprintf = require('sprintf');
 
 module.exports = function(app) {
   'use strict';
 
   var COMIC_URL_PATTERN = /(\d{4})\/(\d{2})\/(\d{2})\/$/;
   var MAX_NUM_TRANSCRIPTIONS = 10;
-  var MIN_COMIC_YEAR = 2005;
+  var MIN_COMIC_DATE = new Date('2005-09-20');
 
   function getDefaultValues(comicDate, _) {
     var filePath = getFilePath(comicDate);
@@ -44,15 +45,15 @@ module.exports = function(app) {
     var day = parseInt(params[2]);
 
     var now = new Date(Date.now());
+    var date = new Date(Date.UTC(year, month - 1, day));
 
-    if ((year < MIN_COMIC_YEAR) || (year > now.getFullYear()) || (month < 1) ||
-      (day < 1)) {
-      var err = new Error('Not found!');
+    if ((month < 1) || (day < 1) || (date < MIN_COMIC_DATE) || (date > now)) {
+      var err = new Error('Invalid comic date!');
       err.status = 404;
       throw err;
     }
 
-    return new Date(Date.UTC(year, month - 1, day));
+    return date;
   }
 
   function saveTranscription(comicDate, data, _) {
