@@ -7,21 +7,21 @@
             <strong>Danke{% if input.user %}, {{ input.user }}{% endif %}!
                 <img alt=":-)" src="//www.fonflatter.de/wp-includes/images/smilies/fred_grins.png"></strong><br>
             Deine Transkription wurde gespeichert.</p>
-    {% else %}
+    {%- else -%}
 
-        {% if result -%}
-            {% if 'could_not_save' in result.errors %}
+        {%- if result -%}
+            {%- if 'could_not_save' in result.errors -%}
                 <p class="alert alert-danger">Fehler beim Speichern!</p>
-            {% endif %}
+            {%- endif -%}
 
-            {% if 'wrong_solution' in result.errors %}
-                {% set is_solution_wrong = true %}
-            {% endif %}
+            {%- if 'wrong_solution' in result.errors -%}
+                {%- set is_solution_wrong = true -%}
+            {%- endif -%}
 
-            {% if 'transcription_missing' in result.errors -%}
-                {% set is_transcription_missing = true %}
-            {% endif %}
-        {% else %}
+            {%- if 'transcription_missing' in result.errors -%}
+                {%- set is_transcription_missing = true -%}
+            {%- endif -%}
+        {%- else %}
             <p>
                 Einen Comic zu transkribieren, ist einfach. Kopiere einfach Dialoge und – falls vorhanden – Geräusche
                 und
@@ -31,7 +31,7 @@
                 Bildbeschreibung in
                 zweifachen eckigen Klammer und den Mouseovertext in zweifachen geschweiften Klammern anfügen.
             </p>
-        {% endif %}
+        {%- endif %}
 
         <p>
             Falls Fragen bestehen, schau einfach ins <a href="{{ app.mountpath }}/">Archiv</a> oder schreib mir eine
@@ -114,5 +114,5 @@
         </form>
     {% endif %}
 
-    <p><hr><a href="{{ app.mountpath }}">zum Archiv</a></p>
+    <div><hr><a href="{{ app.mountpath }}">zum Archiv</a></div>
 {% endblock %}
