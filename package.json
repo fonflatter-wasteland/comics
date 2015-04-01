@@ -4,7 +4,8 @@
   "private": true,
   "scripts": {
     "start": "node ./bin/www",
-    "pretest": "jshint --extra-ext .js,._js . && jscs ."
+    "pretest": "jshint --extra-ext .js,._js . && jscs .",
+    "test": "NODE_ENV=test mocha --ui tdd"
   },
   "dependencies": {
     "body-parser": "^1.12.0",
@@ -15,6 +16,7 @@
     "fonflatter-layout": "git://github.com/fonflatter/layout.git",
     "fs-extra": "^0.16.5",
     "glob": "^5.0.3",
+    "moment": "^2.9.0",
     "morgan": "^1.5.1",
     "nunjucks": "^1.2.0",
     "serve-favicon": "^2.2.0",
@@ -22,7 +24,9 @@
     "streamline": "^0.10.17"
   },
   "devDependencies": {
+    "chai": "^2.2.0",
     "jscs": "git+https://github.com/jscs-dev/node-jscs/",
-    "jshint": "^2.6.3"
+    "jshint": "^2.6.3",
+    "mocha": "^2.2.1"
   }
 }

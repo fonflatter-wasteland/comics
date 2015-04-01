@@ -70,6 +70,4 @@ app.use(function(err, req, res, _) {
   });
 });
 
-app.use('/', layout);
-
 module.exports = app;

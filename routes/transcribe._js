@@ -1,12 +1,13 @@
-var fs = require('fs-extra');
-var sprintf = require('sprintf');
-
 module.exports = function(app) {
   'use strict';
 
+  var fs = require('fs-extra');
+  var sprintf = require('sprintf');
+
+  var Comic = require('../lib/Comic');
+
   var COMIC_URL_PATTERN = /(\d{4})\/(\d{2})\/(\d{2})\/$/;
   var MAX_NUM_TRANSCRIPTIONS = 10;
-  var MIN_COMIC_DATE = new Date('2005-09-20');
 
   function getDefaultValues(comicDate, _) {
     var filePath = getFilePath(comicDate);
@@ -39,23 +40,6 @@ module.exports = function(app) {
       parseInt(firstNumber) + parseInt(secondNumber);
   }
 
-  function parseComicDate(params) {
-    var year = parseInt(params[0]);
-    var month = parseInt(params[1]);
-    var day = parseInt(params[2]);
-
-    var now = new Date(Date.now());
-    var date = new Date(Date.UTC(year, month - 1, day));
-
-    if ((month < 1) || (day < 1) || (date < MIN_COMIC_DATE) || (date > now)) {
-      var err = new Error('Invalid comic date!');
-      err.status = 404;
-      throw err;
-    }
-
-    return date;
-  }
-
   function saveTranscription(comicDate, data, _) {
     var filePath = getFilePath(comicDate);
 
@@ -73,14 +57,14 @@ module.exports = function(app) {
     var now = new Date(Date.now());
     var fileName = filePath + now.toISOString() + '.json';
     fs.writeFile(fileName, JSON.stringify({
-      user: data.user, text: data.text,
+      user: data.user,
+      text: data.text,
     }, null, 4) + '\n', _);
   }
 
   app.get(COMIC_URL_PATTERN, function(req, res, _) {
-    var comicDate = parseComicDate(req.params);
-    var comicUrl = comicDate.getFullYear() + '/fred_' +
-      comicDate.toISOString().substr(0, 10) + '.png';
+    var comicDate = Comic.parseDate(req.params);
+    var imageUrl = Comic.formatImageURL(comicDate);
 
     var input;
     try {
@@ -90,14 +74,17 @@ module.exports = function(app) {
     }
 
     res.render('transcribe.html', {
-      app: req.app, comicUrl: comicUrl, input: input,
+      app: req.app,
+      imageUrl: imageUrl,
+      input: input,
     });
   });
 
   app.post(COMIC_URL_PATTERN, function(req, res, _) {
-    var comicDate = parseComicDate(req.params);
+    var comicDate = Comic.parseDate(req.params);
     var result = {
-      errors: [], submitted: false,
+      errors: [],
+      submitted: false,
     };
 
     if (!isCorrectSolution(req.body.solution, req.body.firstNumber,
@@ -112,7 +99,8 @@ module.exports = function(app) {
     if (result.errors.length === 0) {
       try {
         saveTranscription(comicDate, {
-          user: req.body.user.trim(), text: req.body.text,
+          user: req.body.user.trim(),
+          text: req.body.text,
         }, _);
         result.submitted = true;
       } catch (e) {
@@ -122,7 +110,9 @@ module.exports = function(app) {
     }
 
     res.render('transcribe.html', {
-      app: req.app, input: req.body, result: result,
+      app: req.app,
+      input: req.body,
+      result: result,
     });
   });
 };
