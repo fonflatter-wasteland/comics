@@ -40,14 +40,14 @@ suite('Comic', function() {
     test('with valid dates', function() {
       var validDates = ['2009-01-01',
         '2013-12-31',
-        moment.utc().format('YYYY-MM-DD'),
+        moment().format('YYYY-MM-DD'),
       ];
 
       validDates.forEach(function(date) {
         var components = date.split('-');
         var comic = new Comic(components);
         var comicDate = comic.date.format();
-        expect(comicDate).to.equal(moment.utc(date).format());
+        expect(comicDate).to.equal(moment(date).format());
       });
     });
 
