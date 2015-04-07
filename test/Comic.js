@@ -6,11 +6,11 @@ suite('Comic', function() {
 
   var Comic = require('../lib/Comic');
 
-  suite('parseDate', function() {
+  suite('constructor', function() {
 
-    function lazyParsing(date) {
+    function lazyConstructor(date) {
       return function wrapper() {
-        return Comic.parseDate(date);
+        return new Comic(date);
       };
     }
 
@@ -20,9 +20,9 @@ suite('Comic', function() {
         '2030-40-50'.split('-'),
       ];
 
-      var errorMessage = 'Invalid date!';
+      var errorMessage = /^Invalid date: /;
       invalidDates.forEach(function(date) {
-        expect(lazyParsing(date)).to.throw(TypeError, errorMessage);
+        expect(lazyConstructor(date)).to.throw(TypeError, errorMessage);
       });
     });
 
@@ -31,9 +31,9 @@ suite('Comic', function() {
         '3000-01-01'.split('-'),
       ];
 
-      var errorMessage = 'Date is out of valid range!';
+      var errorMessage = /^Date is out of valid range: /;
       invalidDates.forEach(function(date) {
-        expect(lazyParsing(date)).to.throw(RangeError, errorMessage);
+        expect(lazyConstructor(date)).to.throw(RangeError, errorMessage);
       });
     });
 
@@ -45,7 +45,8 @@ suite('Comic', function() {
 
       validDates.forEach(function(date) {
         var components = date.split('-');
-        var comicDate = Comic.parseDate(components).format();
+        var comic = new Comic(components);
+        var comicDate = comic.date.format();
         expect(comicDate).to.equal(moment.utc(date).format());
       });
     });
