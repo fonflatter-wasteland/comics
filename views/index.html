@@ -1,5 +1,6 @@
 {% extends "layout.html" -%}
 
 {%- block content %}
-<p>Welcome to {{ title }}</p>
+<h3>{{ comic.date.format('YYYY-MM-DD') }}</h3>
+<img src="//fonflatter.de/{{ comic.getImageURL() }}" alt="image"/>
 {% endblock %}
