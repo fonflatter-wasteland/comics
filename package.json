@@ -1,6 +1,6 @@
 {
   "name": "fonflatter-comics",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "private": true,
   "scripts": {
     "start": "node ./bin/www",
@@ -13,7 +13,7 @@
     "debug": "^2.1.1",
     "express": "^4.12.0",
     "express-streamline": "^0.5.3",
-    "fonflatter-layout": "git://github.com/fonflatter/layout.git",
+    "fonflatter-layout": "git://github.com/fonflatter/layout.git#1.0.0",
     "fs-extra": "^0.16.5",
     "glob": "^5.0.3",
     "moment": "^2.9.0",
