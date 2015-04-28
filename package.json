@@ -5,7 +5,7 @@
   "main": "index._js",
   "scripts": {
     "pretest": "npm-check && jshint --extra-ext .js,._js . && jscs .",
-    "test": "NODE_ENV=test mocha --ui tdd"
+    "test": "istanbul cover node_modules/mocha/bin/_mocha"
   },
   "dependencies": {
     "express-streamline": "^0.5.3",
@@ -17,6 +17,7 @@
   },
   "devDependencies": {
     "chai": "^2.2.0",
+    "istanbul": "^0.3.13",
     "jscs": "^1.12.0",
     "jshint": "^2.6.3",
     "mocha": "^2.2.1",
