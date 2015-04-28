@@ -23,6 +23,7 @@
     "jshint": "^2.6.3",
     "mocha": "^2.2.1",
     "npm-check": "^3.2.10",
-    "simple-express-server": "^1.0.0"
+    "simple-express-server": "^1.0.0",
+    "supertest": "^0.15.0"
   }
 }
