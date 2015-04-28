@@ -2,8 +2,8 @@
   "name": "fonflatter-comics",
   "version": "1.0.1-dev",
   "private": true,
+  "main": "index._js",
   "scripts": {
-    "start": "node ./bin/www",
     "pretest": "jshint --extra-ext .js,._js . && jscs .",
     "test": "NODE_ENV=test mocha --ui tdd"
   },
@@ -28,6 +28,7 @@
     "chai": "^2.2.0",
     "jscs": "^1.12.0",
     "jshint": "^2.6.3",
-    "mocha": "^2.2.1"
+    "mocha": "^2.2.1",
+    "simple-express-server": "^1.0.0"
   }
 }
