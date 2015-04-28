@@ -11,8 +11,6 @@
     "express-streamline": "^0.5.3",
     "fonflatter-error-handler": "git://github.com/fonflatter/error-handler.git#1.0.0-dev",
     "fonflatter-layout": "git://github.com/fonflatter/layout.git#1.0.1-dev",
-    "fs-extra": "^0.18.0",
-    "glob": "^5.0.3",
     "moment": "^2.9.0",
     "morgan": "^1.5.1",
     "streamline": "^0.12.1"
