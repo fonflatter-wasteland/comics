@@ -8,3 +8,5 @@ Express app handling comics
 [![Build Status](https://api.travis-ci.org/fonflatter/comics.svg)](https://travis-ci.org/fonflatter/comics)
 
 [![Coverage Status](https://coveralls.io/repos/fonflatter/comics/badge.svg?branch=1.0.1-dev)](https://coveralls.io/r/fonflatter/comics?branch=1.0.1-dev)
+
+[![Stories in Progress](https://badge.waffle.io/fonflatter/comics.png?label=in%20progress&title=In%20Progress)](http://waffle.io/fonflatter/comics)
