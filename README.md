@@ -11,5 +11,6 @@ Express app handling comics
 [![Codeship Status](https://codeship.com/projects/cf4f5340-d565-0132-0f56-2a9cd3aa2038/status)](https://codeship.com/projects/78053)
 
 [![Coverage Status](https://coveralls.io/repos/fonflatter/comics/badge.svg?branch=1.0.1-dev)](https://coveralls.io/r/fonflatter/comics?branch=1.0.1-dev)
+[![Code Climate](https://codeclimate.com/github/fonflatter/comics/badges/gpa.svg)](https://codeclimate.com/github/fonflatter/comics)
 
 [![Stories in Progress](https://badge.waffle.io/fonflatter/comics.png?label=in%20progress&title=In%20Progress)](http://waffle.io/fonflatter/comics)
