@@ -8,6 +8,7 @@ Express app handling comics
 
 [![Build Status](https://api.travis-ci.org/fonflatter/comics.svg)](https://travis-ci.org/fonflatter/comics)
 [![Build Status](https://drone.io/github.com/fonflatter/comics/status.png)](https://drone.io/github.com/fonflatter/comics/latest)
+[![Build status](https://ci.appveyor.com/api/projects/status/fkso4l5vc4t8rh5v/branch/1.0.1-dev?svg=true)](https://ci.appveyor.com/project/winniehell/comics/branch/1.0.1-dev)
 [![Codeship Status](https://codeship.com/projects/cf4f5340-d565-0132-0f56-2a9cd3aa2038/status)](https://codeship.com/projects/78053)
 
 [![Coverage Status](https://coveralls.io/repos/fonflatter/comics/badge.svg?branch=1.0.1-dev)](https://coveralls.io/r/fonflatter/comics?branch=1.0.1-dev)
